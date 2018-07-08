@@ -7,16 +7,34 @@
 //
 
 import UIKit
+import VternalFramework
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        VternalFramework.registerApplication(withKey: "be7c3cd0f68359427f4155cd04375153d992e4cb77caefed789d5ca63cde7145" , callback: {(result: Bool) -> () in
+            if result {
+                print("Registered for \(Bundle.main.bundleIdentifier!) ");
+            }
+            else {
+                print("Failed to Register for \(Bundle.main.bundleIdentifier!) ");
+            }
+        })
+        
         return true
+    }
+
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler:@escaping (UIBackgroundFetchResult) -> Void) {
+        
+        let result = VternalFramework.conjugate()
+        
+        completionHandler( result )
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
